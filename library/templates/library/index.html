@@ -1,0 +1,47 @@
+{% extends 'library/base.html' %}
+{% block content %}
+    <main role="main">
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Danh Mục Sách</h1>
+          <p>
+              <a href="#" class="btn btn-primary my-2">Xem Tất Cả</a>
+              {% for item in category %}
+                  <a href="#" class="btn btn-primary my-2">{{ item.name_cate }}</a>
+              {% endfor %}
+          </p>
+        </div>
+      </section>
+    </main>
+<div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row">
+               {% for item in book %}
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                <img class="card-img-top" src="{{ item.image.url }}" width="150" height="300">
+                <div class="card-body">
+                  <p class="card-text">{{ item.description }}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Thông Tin Thêm</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Mượn Sách</button>
+                    </div>
+                    <small class="number">Số lượng: {{ item.quantity_book }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+                  {% endfor %}
+          </div>
+        </div>
+    </div>
+</div>
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+      </div>
+    </footer>
+{% endblock %}
