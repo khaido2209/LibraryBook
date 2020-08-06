@@ -29,7 +29,7 @@ class Author(models.Model):
 class Book(models.Model):
     #Fields
     status = models.BooleanField(default=1)
-    name_book = models.CharField(max_length=100, unique=True)
+    name_book = models.CharField(max_length=100)
     quantity_book = models.IntegerField(default=1)
     cate = models.ManyToManyField(Category)
     author = models.ManyToManyField(Author)
@@ -98,7 +98,7 @@ class BorrowBook(models.Model):
             return self.book.quantity_book
 
     def __str__(self):
-        return f'{self.id} ({self.book.name_book})'
+        return f'{self.id} ({self.book.name_book})' 
 
     def save(self, *args, **kwargs):
         # b = BorrowBook.objects.get(self)

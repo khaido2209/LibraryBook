@@ -1,47 +1,67 @@
 {% extends 'library/base.html' %}
 {% block content %}
-    <main role="main">
-      <section class="jumbotron text-center">
-        <div class="container">
-          <h1 class="jumbotron-heading">Danh Mục Sách</h1>
-          <p>
-              <a href="#" class="btn btn-primary my-2">Xem Tất Cả</a>
-              {% for item in category %}
-                  <a href="#" class="btn btn-primary my-2">{{ item.name_cate }}</a>
-              {% endfor %}
-          </p>
-        </div>
-      </section>
-    </main>
-<div class="album py-5 bg-light">
-        <div class="container">
-          <div class="row">
-               {% for item in book %}
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" src="{{ item.image.url }}" width="150" height="300">
-                <div class="card-body">
-                  <p class="card-text">{{ item.description }}</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Thông Tin Thêm</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Mượn Sách</button>
-                    </div>
-                    <small class="number">Số lượng: {{ item.quantity_book }}</small>
-                  </div>
-                </div>
+<main role="main" xmlns="http://www.w3.org/1999/html">
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Danh Mục Sách</h1>
+      <p>
+        <a href="{% url 'library:index' %}" class="btn btn-primary my-2">Xem Tất Cả</a>
+        {% for item in category %}
+        <a href="{% url 'library:view' item.id %}" class="btn btn-primary my-2">{{ item.name_cate }}</a>
+        {% endfor %}
+      </p>
+    </div>
+  </section>
+</main>
+<div class="album bg-light">
+  <div class="container">
+    <div class="row">
+      {% for item in paging %}
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+          <img class="card-img-top" src="{{ item.image.url }}" height="300">
+          <div class="card-body">
+            <p class="card-text">{{ item.description }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <a href="{% url 'library:book_detail' item.id %}" class="btn btn-outline-secondary">Thông tin thêm</a>
+                <a href="#" class="btn btn-outline-secondary">Mượn sách</a>
               </div>
+              <small class="number">Số lượng: {{ item.quantity_book }}</small>
             </div>
-                  {% endfor %}
           </div>
         </div>
-    </div>
-</div>
-    <footer class="text-muted">
-      <div class="container">
-        <p class="float-right">
-          <a href="#">Back to top</a>
-        </p>
       </div>
-    </footer>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="container">
+    <ul class="pagination">
+      {% if paging.has_previous %}
+      <a class="page-link" href="?page={{ paging.previous_page_number }}"><b>Previous</b></a>
+      {% endif %}
+
+      {% for i in paging.paginator.page_range %}
+      {% if paging.number == i %}
+      <li class="page-item"><a class="page-link" href="#">{{ i }}</a></li>
+      {% else %}
+      <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+      {% endfor %}
+
+      {% if paging.has_next %}
+      <a class="page-link" href="?page={{ paging.next_page_number }}"><b>Next</b></a>
+      {% endif %}
+    </ul>
+  </div>
+
+
+</div>
+{#    <footer class="text-muted">#}
+{#      <div class="container">#}
+{#        <p class="float-right">#}
+{#          <a href="#">Back to top</a>#}
+{#        </p>#}
+{#      </div>#}
+{#    </footer>#}
 {% endblock %}
