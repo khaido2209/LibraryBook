@@ -31,7 +31,7 @@
       <hr>
 
       <!-- Preview Image -->
-      <img class="img-fluid rounded" src={{book.image.url}} alt="">
+      <img class="img-fluid rounded" src={{book.image.url}} alt="" height="600" width="300">
 
       <hr>
 
@@ -53,7 +53,7 @@
 
     <!-- Sidebar Widgets Column -->
     <div class="col-md-4">
-
+      
       <!-- Search Widget -->
       <!-- <div class="card my-4">
         <h5 class="card-header">Search</h5>
@@ -68,21 +68,26 @@
       </div> -->
 
       <!-- Categories Widget -->
+      <div style="text-align: center;">
       <div class="card my-4">
-        <h5 class="card-header">Thể loại</h5>
+        <h5 class="card-header">Sách cùng thể loại {{ book.cate.all|join:", " }}</h5>
         <div class="card-body">
-          <div class="row">
-            <div class="col-lg-6">
-              <ul class="list-unstyled mb-0">
-                {% for item in catename %}
-                <a href="{% url 'library:view' item.id %}" class="btn btn-primary my-2">{{ item.name_cate }}</a>
+          <div class="row justify-content-md-center">
+            <div class="col-lg-8">
+              <!-- <ul class="list-unstyled mb-0"> -->
+                
+                {% for book in books %}
+                  {{book.name_book}} 
+                  <img class="img-fluid rounded" src={{book.image.url}} alt="" >
+                  <hr>
                 {% endfor %}
-              </ul>
+
+              <!-- </ul> -->
             </div>
           </div>
         </div>
       </div>
-
+    </div>
 
 
     </div>
